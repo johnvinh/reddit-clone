@@ -8,6 +8,7 @@ import jakarta.persistence.OneToMany
 @Entity
 class Comment(
     @Id @GeneratedValue var id: Long? = null,
+    var author: User,
     var body: String,
     @OneToMany var children: List<Comment>
 )
