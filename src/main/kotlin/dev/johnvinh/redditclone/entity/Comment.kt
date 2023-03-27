@@ -11,5 +11,6 @@ class Comment(
     @Id @GeneratedValue var id: Long? = null,
     @OneToOne var author: User,
     var body: String,
-    @OneToMany var children: List<Comment>
+    @OneToMany var children: List<Comment>,
+    var karma: Int,
 )
