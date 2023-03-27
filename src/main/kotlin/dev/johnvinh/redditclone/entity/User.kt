@@ -11,5 +11,7 @@ import jakarta.persistence.Table
 class User(
     @Id @GeneratedValue var id: Long? = null,
     @OneToMany var comments: List<Comment>,
-    @OneToMany var posts: List<Post>
+    @OneToMany var posts: List<Post>,
+    @OneToMany var upvotedComments: HashSet<Comment>,
+    @OneToMany var downvotedComments: HashSet<Comment>
 )
