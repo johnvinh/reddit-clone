@@ -12,5 +12,5 @@ class Comment(
     @OneToOne var author: User,
     var body: String,
     @OneToMany var children: List<Comment>,
-    var karma: Int,
+    var karma: Int = 0,
 )
