@@ -1,4 +1,13 @@
 package dev.johnvinh.redditclone.entity
 
-class Comment {
-}
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
+
+@Entity
+class Comment(
+    @Id @GeneratedValue var id: Long? = null,
+    var body: String,
+    @OneToMany var children: List<Comment>
+)
