@@ -9,9 +9,10 @@ import jakarta.persistence.Table
 @Entity
 @Table(name = "Users")
 class User(
-    @Id @GeneratedValue var id: Long? = null,
-    @OneToMany var comments: List<Comment>,
-    @OneToMany var posts: List<Post>,
-    @OneToMany var upvotedComments: HashSet<Comment>,
-    @OneToMany var downvotedComments: HashSet<Comment>
+    var username: String,
+    @OneToMany var comments: List<Comment> = listOf(),
+    @OneToMany var posts: List<Post> = listOf(),
+    @OneToMany var upvotedComments: Set<Comment> = setOf(),
+    @OneToMany var downvotedComments: Set<Comment> = setOf(),
+    @Id @GeneratedValue var id: Long? = null
 )
