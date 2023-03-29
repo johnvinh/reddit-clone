@@ -10,6 +10,7 @@ import jakarta.persistence.Table
 @Table(name = "Users")
 class User(
     var username: String,
+    var password: String,
     @OneToMany var comments: List<Comment> = listOf(),
     @OneToMany var posts: List<Post> = listOf(),
     @OneToMany var upvotedComments: Set<Comment> = setOf(),

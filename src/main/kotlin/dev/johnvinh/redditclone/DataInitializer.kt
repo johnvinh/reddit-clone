@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 @Component
 class DataInitializer @Autowired constructor(val userRepository: UserRepository) : CommandLineRunner {
     override fun run(vararg args: String?) {
-        userRepository.save(User("John"))
+        userRepository.save(User("John", "123"))
     }
 
 }
