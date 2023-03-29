@@ -3,10 +3,13 @@
     let users = [];
 
     onMount(async () => {
-        const res = await fetch("/api/user/");
-        users = res.json();
+        const res = await fetch("/api/user");
+        users = await res.json();
     });
-    console.log(users);
 </script>
 
-<p>Hello!</p>
+<ul>
+    {#each users as user}
+        <li>{user["username"]}</li>
+    {/each}
+</ul>
