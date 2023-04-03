@@ -19,6 +19,14 @@ class UserService @Autowired constructor(private val userRepository: UserReposit
 
     }
 
+    fun login(username: String, password: String): User? {
+        val user = userRepository.findByUsername(username)
+        if (user != null && user.password == password) {
+            return user
+        }
+        return null
+    }
+
     fun usernameIsTaken(username: String): Boolean {
         return userRepository.findByUsername(username) != null
     }
