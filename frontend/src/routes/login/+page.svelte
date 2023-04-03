@@ -1,4 +1,5 @@
 <script>
+    import { onMount } from "svelte";
 
     let username = '';
     let password = '';
@@ -23,6 +24,7 @@
 
         if (response.ok) {
             message = "Login successful!";
+            localStorage.setItem("token", data.token);
             setTimeout(() => {
                 window.location.href = '/';
             }, 1000);
@@ -30,6 +32,13 @@
             message = data.message;
         }
     }
+
+    onMount(() => {
+        // Redirect to home if already logged in
+        if (localStorage.getItem("token")) {
+            window.location.href = '/';
+        }
+    });
 </script>
 
 {#if message}
