@@ -23,6 +23,9 @@
 
         if (response.ok) {
             message = "Registration successful!";
+            setTimeout(() => {
+                window.location.href = '/login';
+            }, 1000);
         } else {
             message = data.message;
         }
