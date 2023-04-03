@@ -1,4 +1,4 @@
-<form method="post" action="/api/login">
+<form method="post" action="/api/user/login">
     <label for="username">Username</label>
     <input id="username" name="username" type="text">
 
