@@ -9,4 +9,13 @@ import org.springframework.stereotype.Service
 class UserService @Autowired constructor(private val userRepository: UserRepository) {
 
     fun getAll(): Iterable<User> = userRepository.findAll()
+
+    fun register(user: User) {
+        // Check if user exists
+        if (userRepository.findByUsername(user.username) == null) {
+            // If not, create user
+            userRepository.save(user)
+        }
+
+    }
 }
