@@ -24,8 +24,15 @@ class UserController @Autowired constructor(private val service: UserService) {
     fun get() = service.getAll()
 
     @PostMapping("/login")
-    fun login(@RequestParam("username") username: String, @RequestParam("password") password: String) {
-
+    fun login(@RequestBody loginRequest: RegistrationRequest): ResponseEntity<*> {
+        val user = service.login(loginRequest.username, loginRequest.password)
+            ?: return ResponseEntity.badRequest().body(mapOf("message" to "Invalid credentials"))
+        val key = Keys.secretKeyFor(SignatureAlgorithm.HS256)
+        val jwt = Jwts.builder()
+            .setSubject(user.username)
+            .signWith(key, SignatureAlgorithm.HS256)
+            .compact()
+        return ResponseEntity.ok(mapOf("token" to jwt))
     }
 
     @PostMapping("/register")
