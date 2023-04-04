@@ -1,7 +1,7 @@
-<svelte:head>
-    <link rel="stylesheet" type="text/css" href="css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="css/sakura.css">
-</svelte:head>
+<script>
+    import "$lib/css/normalize.css";
+    import "$lib/css/sakura.css";
+</script>
 
 <main>
     <slot></slot>
