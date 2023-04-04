@@ -30,4 +30,8 @@ class UserService @Autowired constructor(private val userRepository: UserReposit
     fun usernameIsTaken(username: String): Boolean {
         return userRepository.findByUsername(username) != null
     }
+
+    fun getUserByUsername(username: String): User? {
+        return userRepository.findByUsername(username)
+    }
 }
