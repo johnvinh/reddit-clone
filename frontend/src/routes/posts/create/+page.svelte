@@ -12,12 +12,6 @@
     });
 
     async function onSubmit(event) {
-        console.log("Submit running");
-        console.log(JSON.stringify({
-            title,
-            textualContent,
-            link,
-        }))
         event.preventDefault();
         const response = await fetch("/api/post", {
             method: "POST",

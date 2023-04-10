@@ -33,12 +33,9 @@ class PostController(private val postService: PostService, private val userServi
         val claims: Claims = try {
             parser.parseClaimsJws(token).body
         } catch (e: io.jsonwebtoken.security.SignatureException) {
-            println("Invalid token")
             return ResponseEntity.badRequest().body(mapOf("message" to "Invalid token"))
         }
         val username = claims.subject
-        println("Claims is valid")
-        println(username)
         val user = userService.getUserByUsername(username) ?: return ResponseEntity.badRequest()
             .body(mapOf("message" to "Invalid token"))
         val post = Post(
