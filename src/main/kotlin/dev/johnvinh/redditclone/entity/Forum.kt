@@ -8,10 +8,10 @@ import jakarta.persistence.OneToOne
 
 @Entity
 class Forum(
-    @Id @GeneratedValue var id: Long? = null,
     var name: String,
     var description: String,
     @OneToOne var owner: User,
-    @OneToMany var posts: List<Post>,
-    @OneToMany var moderators: List<User>,
+    @OneToMany var posts: List<Post> = listOf(),
+    @OneToMany var moderators: List<User> = listOf(),
+    @Id @GeneratedValue var id: Long? = null,
 )

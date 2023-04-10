@@ -28,7 +28,7 @@ class PostController(private val postService: PostService, private val userServi
 
     @PostMapping("")
     fun createPost(@RequestBody postRequest: PostRequest, request: HttpServletRequest): ResponseEntity<*> {
-        val token = request.getHeader("Authorization")?.replace("Bearer ", "")
+        /*val token = request.getHeader("Authorization")?.replace("Bearer ", "")
         println("Token: $token")
         val claims: Claims = try {
             parser.parseClaimsJws(token).body
@@ -46,7 +46,7 @@ class PostController(private val postService: PostService, private val userServi
             0,
             listOf()
         )
-        postService.createPost(post)
+        postService.createPost(post)*/
         return ResponseEntity.ok(mapOf("message" to "Post created"))
     }
 }
