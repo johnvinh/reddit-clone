@@ -8,6 +8,7 @@ import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -19,6 +20,9 @@ class ForumRequest(var name: String, var description: String)
 @RequestMapping("/api/forum")
 class ForumController(private val userService: UserService, private val forumService: ForumService) {
     private val parser = Jwts.parserBuilder().setSigningKey(JwtKey.secretKey).build()
+
+    @GetMapping("")
+    fun getAllForums() = forumService.getAllForums()
 
     @PostMapping("/create")
     fun createForum(@RequestBody forumRequest: ForumRequest, request: HttpServletRequest): ResponseEntity<*> {
