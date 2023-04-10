@@ -33,7 +33,7 @@ class UserController @Autowired constructor(private val service: UserService) {
             .setSubject(user.username)
             .signWith(key, SignatureAlgorithm.HS256)
             .compact()
-        return ResponseEntity.ok(mapOf("token" to jwt))
+        return ResponseEntity.ok(mapOf("token" to jwt, "username" to user.username))
     }
 
     @PostMapping("/register")

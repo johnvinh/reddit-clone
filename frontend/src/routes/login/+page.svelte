@@ -25,6 +25,7 @@
         if (response.ok) {
             message = "Login successful!";
             localStorage.setItem("token", data.token);
+            localStorage.setItem("username", data.username);
             setTimeout(() => {
                 window.location.href = '/';
             }, 1000);
