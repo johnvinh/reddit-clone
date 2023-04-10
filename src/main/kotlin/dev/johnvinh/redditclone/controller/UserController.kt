@@ -1,5 +1,6 @@
 package dev.johnvinh.redditclone.controller
 
+import JwtKey
 import dev.johnvinh.redditclone.entity.User
 import dev.johnvinh.redditclone.service.UserService
 import io.jsonwebtoken.Jwts
@@ -27,7 +28,7 @@ class UserController @Autowired constructor(private val service: UserService) {
     fun login(@RequestBody loginRequest: RegistrationRequest): ResponseEntity<*> {
         val user = service.login(loginRequest.username, loginRequest.password)
             ?: return ResponseEntity.badRequest().body(mapOf("message" to "Invalid credentials"))
-        val key = Keys.secretKeyFor(SignatureAlgorithm.HS256)
+        val key = JwtKey.secretKey
         val jwt = Jwts.builder()
             .setSubject(user.username)
             .signWith(key, SignatureAlgorithm.HS256)
@@ -42,7 +43,7 @@ class UserController @Autowired constructor(private val service: UserService) {
         }
         val newUser = User(registerRequest.username, registerRequest.password)
         service.register(newUser)
-        val key = Keys.secretKeyFor(SignatureAlgorithm.HS256)
+        val key = JwtKey.secretKey
         val jwt = Jwts.builder()
             .setSubject(newUser.username)
             .signWith(key, SignatureAlgorithm.HS256)

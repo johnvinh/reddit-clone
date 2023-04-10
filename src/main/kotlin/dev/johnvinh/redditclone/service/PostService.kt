@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class PostService @Autowired constructor(private val repository: PostRepository) {
+
+    fun getAllPosts(): Iterable<Post> = repository.findAll()
     fun createPost(post: Post) {
         repository.save(post)
     }
