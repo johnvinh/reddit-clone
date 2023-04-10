@@ -1,15 +1,15 @@
 <script>
     import {onMount} from "svelte";
-    let users = [];
+    let posts = [];
 
     onMount(async () => {
-        const res = await fetch("/api/user");
-        users = await res.json();
+        const res = await fetch("/api/post");
+        posts = await res.json();
     });
 </script>
 
 <ul>
-    {#each users as user}
-        <li>{user["username"]}</li>
+    {#each posts as post}
+        <li>{post["title"]}</li>
     {/each}
 </ul>
