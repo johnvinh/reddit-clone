@@ -14,5 +14,6 @@ class Post(
     @ManyToOne var author: User,
     var upvotes: Int = 0,
     @OneToMany var comments: List<Comment>,
+    @ManyToOne var forum: Forum,
     @Id @GeneratedValue var id: Long? = null
 )
