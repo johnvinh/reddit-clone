@@ -30,6 +30,7 @@
             message = "That name is taken. Please choose another one.";
         } else if (data.message === "Forum created") {
             message = "Forum successfully created!";
+            window.location.href = `/forums/${name}`;
         } else if (data.message === "Invalid token") {
             localStorage.removeItem("token");
             window.location.href = "/login";
