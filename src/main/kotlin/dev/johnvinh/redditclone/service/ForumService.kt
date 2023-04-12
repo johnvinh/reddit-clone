@@ -13,6 +13,6 @@ class ForumService @Autowired constructor(private val repository: ForumRepositor
     }
 
     fun getForumByName(name: String): Forum? {
-        return repository.getForumByName(name)
+        return repository.findForumByNameIgnoreCase(name)
     }
 }

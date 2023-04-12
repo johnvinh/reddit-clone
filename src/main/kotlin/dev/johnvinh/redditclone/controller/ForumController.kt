@@ -9,9 +9,11 @@ import io.jsonwebtoken.Jwts
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
 class ForumRequest(var name: String, var description: String)
@@ -23,6 +25,13 @@ class ForumController(private val userService: UserService, private val forumSer
 
     @GetMapping("")
     fun getAllForums() = forumService.getAllForums()
+
+    @GetMapping("/{forum}")
+    @ResponseBody
+    fun getSpecificForum(@PathVariable("forum") forum: String): Forum? {
+        // Casing doesn't matter when requesting a forum
+        return forumService.getForumByName(forum)
+    }
 
     @PostMapping("/create")
     fun createForum(@RequestBody forumRequest: ForumRequest, request: HttpServletRequest): ResponseEntity<*> {

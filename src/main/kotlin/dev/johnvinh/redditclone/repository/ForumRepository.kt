@@ -4,5 +4,5 @@ import dev.johnvinh.redditclone.entity.Forum
 import org.springframework.data.repository.CrudRepository
 
 interface ForumRepository : CrudRepository<Forum, Long> {
-    fun getForumByName(name: String): Forum?
+    fun findForumByNameIgnoreCase(name: String): Forum?
 }
