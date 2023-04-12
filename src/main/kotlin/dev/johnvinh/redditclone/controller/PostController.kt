@@ -2,6 +2,7 @@ package dev.johnvinh.redditclone.controller
 
 import JwtKey
 import dev.johnvinh.redditclone.entity.Post
+import dev.johnvinh.redditclone.service.ForumService
 import dev.johnvinh.redditclone.service.PostService
 import dev.johnvinh.redditclone.service.UserService
 import io.jsonwebtoken.Claims
@@ -16,11 +17,15 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-class PostRequest(var title: String, var textualContent: String, var link: String)
+class PostRequest(var title: String, var textualContent: String, var link: String, var forum: String)
 
 @RestController
 @RequestMapping("/api/post")
-class PostController(private val postService: PostService, private val userService: UserService) {
+class PostController(
+    private val postService: PostService,
+    private val userService: UserService,
+    private val forumService: ForumService
+) {
     private val parser = Jwts.parserBuilder().setSigningKey(JwtKey.secretKey).build()
 
     @GetMapping("")
@@ -28,7 +33,7 @@ class PostController(private val postService: PostService, private val userServi
 
     @PostMapping("")
     fun createPost(@RequestBody postRequest: PostRequest, request: HttpServletRequest): ResponseEntity<*> {
-        /*val token = request.getHeader("Authorization")?.replace("Bearer ", "")
+        val token = request.getHeader("Authorization")?.replace("Bearer ", "")
         println("Token: $token")
         val claims: Claims = try {
             parser.parseClaimsJws(token).body
@@ -44,9 +49,11 @@ class PostController(private val postService: PostService, private val userServi
             link = postRequest.link,
             author = user,
             0,
-            listOf()
+            listOf(),
+            forumService.getForumByName(postRequest.forum) ?: return ResponseEntity.badRequest()
+                .body(mapOf("message" to "Invalid forum"))
         )
-        postService.createPost(post)*/
+        postService.createPost(post)
         return ResponseEntity.ok(mapOf("message" to "Post created"))
     }
 }

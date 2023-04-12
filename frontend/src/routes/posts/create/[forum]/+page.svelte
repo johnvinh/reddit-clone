@@ -1,11 +1,15 @@
 <script>
     import {onMount} from "svelte";
 
+    /** @type {import('./$types').PageData} */
+    export let data;
+
     let title = "";
     let textualContent = "";
     let link = "";
     let token = "";
     let message = "";
+    let forum = data.forum.name;
 
     onMount(() => {
         token = localStorage.getItem("token");
@@ -23,6 +27,7 @@
                 title,
                 textualContent,
                 link,
+                forum
             })
         });
         const data = await response.json();
@@ -46,6 +51,9 @@
     <p>{message}</p>
 {/if}
 
+{#if forum}
+    <h1>{forum}</h1>
+{/if}
 <form on:submit={onSubmit}>
     <label for="title">Title</label>
     <input type="text" name="title" id="title" bind:value={title}>
