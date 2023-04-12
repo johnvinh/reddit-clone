@@ -9,12 +9,7 @@
     let posts = [];
 
     onMount(async () => {
-        const response = await fetch(`/api/forum/${data.forum.name}`,
-            {
-                headers: {
-                    'Content-Type': "application/json",
-                }
-            })
+        const response = await fetch(`/api/forum/${data.forum.name}`);
         forumData = await response.text();
         if (forumData === "") {
             message = "There is no forum with that name.";
