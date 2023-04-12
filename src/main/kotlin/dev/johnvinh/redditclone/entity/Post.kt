@@ -1,5 +1,6 @@
 package dev.johnvinh.redditclone.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
@@ -14,6 +15,6 @@ class Post(
     @ManyToOne var author: User,
     var upvotes: Int = 0,
     @OneToMany var comments: List<Comment>,
-    @ManyToOne var forum: Forum,
+    @JsonIgnoreProperties("posts") @ManyToOne var forum: Forum,
     @Id @GeneratedValue var id: Long? = null
 )

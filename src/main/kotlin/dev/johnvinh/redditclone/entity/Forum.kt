@@ -11,7 +11,7 @@ class Forum(
     var name: String,
     var description: String,
     @OneToOne var owner: User,
-    @OneToMany var posts: List<Post> = listOf(),
-    @OneToMany var moderators: List<User> = listOf(),
+    @OneToMany var posts: MutableList<Post> = mutableListOf(),
+    @OneToMany var moderators: MutableList<User> = mutableListOf(),
     @Id @GeneratedValue var id: Long? = null,
 )

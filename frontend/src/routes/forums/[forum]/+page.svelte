@@ -9,14 +9,20 @@
     let posts = [];
 
     onMount(async () => {
-        const response = await fetch(`/api/forum/${data.forum.name}`)
-        const text = await response.text();
-        if (text === "") {
+        const response = await fetch(`/api/forum/${data.forum.name}`,
+            {
+                headers: {
+                    'Content-Type': "application/json",
+                }
+            })
+        forumData = await response.text();
+        if (forumData === "") {
             message = "There is no forum with that name.";
             return;
         }
-        forumData = await response.json();
-        posts = forumData.posts;
+        forumData = JSON.parse(forumData);
+        posts = forumData["posts"];
+        console.log(posts);
     });
 </script>
 
@@ -28,7 +34,7 @@
 
     <ul>
         {#each posts as post}
-            <li>{post.title}</li>
+            <li>{post["title"]}</li>
         {/each}
     </ul>
 {/if}

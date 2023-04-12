@@ -43,6 +43,7 @@ class PostController(
         val username = claims.subject
         val user = userService.getUserByUsername(username) ?: return ResponseEntity.badRequest()
             .body(mapOf("message" to "Invalid token"))
+        val forum = forumService.getForumByName(postRequest.forum) ?: return ResponseEntity.badRequest().body(mapOf("message" to "Invalid forum"))
         val post = Post(
             title = postRequest.title,
             textualContent = postRequest.textualContent,
@@ -50,10 +51,10 @@ class PostController(
             author = user,
             0,
             listOf(),
-            forumService.getForumByName(postRequest.forum) ?: return ResponseEntity.badRequest()
-                .body(mapOf("message" to "Invalid forum"))
+            forum
         )
         postService.createPost(post)
+        forumService.addPost(forum, post)
         return ResponseEntity.ok(mapOf("message" to "Post created"))
     }
 }
