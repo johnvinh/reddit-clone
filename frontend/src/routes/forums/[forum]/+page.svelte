@@ -19,6 +19,11 @@
         posts = forumData["posts"];
         console.log(posts);
     });
+
+    function createPost()
+    {
+        window.location.href = `/posts/create/${data.forum.name}`;
+    }
 </script>
 
 {#if message}
@@ -27,6 +32,7 @@
 {#if !message}
     <h2>r/{data.forum.name}</h2>
 
+    <input type="button" value="Create Post" on:click={createPost}>
     <ul>
         {#each posts as post}
             <li>{post["title"]}</li>
