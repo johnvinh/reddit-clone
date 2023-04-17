@@ -34,4 +34,8 @@ class UserService @Autowired constructor(private val userRepository: UserReposit
     fun getUserByUsername(username: String): User? {
         return userRepository.findByUsername(username)
     }
+
+    fun getUserByUsernameIgnoreCase(username: String): User? {
+        return userRepository.findByUsernameIgnoreCase(username)
+    }
 }
