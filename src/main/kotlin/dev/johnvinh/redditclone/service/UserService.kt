@@ -12,7 +12,7 @@ class UserService @Autowired constructor(private val userRepository: UserReposit
 
     fun register(user: User) {
         // Check if user exists
-        if (userRepository.findByUsername(user.username) == null) {
+        if (userRepository.findByUsernameIgnoreCase(user.username) == null) {
             // If not, create user
             userRepository.save(user)
         }
@@ -20,7 +20,7 @@ class UserService @Autowired constructor(private val userRepository: UserReposit
     }
 
     fun login(username: String, password: String): User? {
-        val user = userRepository.findByUsername(username)
+        val user = userRepository.findByUsernameIgnoreCase(username)
         if (user != null && user.password == password) {
             return user
         }
@@ -28,14 +28,10 @@ class UserService @Autowired constructor(private val userRepository: UserReposit
     }
 
     fun usernameIsTaken(username: String): Boolean {
-        return userRepository.findByUsername(username) != null
+        return userRepository.findByUsernameIgnoreCase(username) != null
     }
 
     fun getUserByUsername(username: String): User? {
-        return userRepository.findByUsername(username)
-    }
-
-    fun getUserByUsernameIgnoreCase(username: String): User? {
         return userRepository.findByUsernameIgnoreCase(username)
     }
 }
