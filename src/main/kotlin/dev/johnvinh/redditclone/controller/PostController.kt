@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
 class PostRequest(var title: String, var textualContent: String, var link: String, var forum: String)
@@ -33,6 +34,7 @@ class PostController(
     fun getPosts() = postService.getAllPosts()
 
     @GetMapping("/{id}")
+    @ResponseBody
     fun getPostById(@PathVariable id: Long): Post? {
         return postService.getPostById(id)
     }
