@@ -63,6 +63,6 @@ class PostController(
         )
         val newPost = postService.createPost(post)
         forumService.addPost(forum, post)
-        return ResponseEntity.ok(mapOf("message" to "Post created", "id" to newPost.id))
+        return ResponseEntity.ok(mapOf("message" to "Post created", "id" to newPost.id, "forum" to newPost.forum.name))
     }
 }

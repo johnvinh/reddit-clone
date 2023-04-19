@@ -36,7 +36,7 @@
             window.location.href = "/login";
         } else if (data.message === "Post created") {
             message = "Your post has been successfully created!";
-            window.location.href = `/forums/posts/${data.id}`;
+            window.location.href = `/forums/${data.forum}/${data.id}`;
         }
     }
 </script>
