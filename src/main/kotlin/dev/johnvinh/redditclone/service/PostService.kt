@@ -13,7 +13,7 @@ class PostService @Autowired constructor(private val repository: PostRepository)
 
     fun getPostById(id: Long): Post? = repository.findByIdOrNull(id)
 
-    fun createPost(post: Post) {
-        repository.save(post)
+    fun createPost(post: Post): Post {
+        return repository.save(post)
     }
 }
