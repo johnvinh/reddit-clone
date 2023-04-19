@@ -37,6 +37,8 @@
         } else if (data.message === "Post created") {
             message = "Your post has been successfully created!";
             window.location.href = `/forums/${data.forum}/${data.id}`;
+        } else if (data.message === "Invalid link") {
+            message = "The link you provided is invalid.";
         }
     }
 </script>

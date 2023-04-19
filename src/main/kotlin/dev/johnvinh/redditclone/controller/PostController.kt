@@ -52,6 +52,11 @@ class PostController(
         val user = userService.getUserByUsername(username) ?: return ResponseEntity.badRequest()
             .body(mapOf("message" to "Invalid token"))
         val forum = forumService.getForumByName(postRequest.forum) ?: return ResponseEntity.badRequest().body(mapOf("message" to "Invalid forum"))
+        // Check that postRequest.link is a link using regex
+        val linkRegex = Regex("^(http|https)://.*")
+        if (postRequest.link.isNotEmpty() && !linkRegex.matches(postRequest.link)) {
+            return ResponseEntity.badRequest().body(mapOf("message" to "Invalid link"))
+        }
         val post = Post(
             title = postRequest.title,
             textualContent = postRequest.textualContent,
