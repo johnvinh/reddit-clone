@@ -20,6 +20,7 @@
 </script>
 
 <header>
+    <h1>Reddit Clone</h1>
     {#if username}
         <p>{username}</p>
     {/if}
