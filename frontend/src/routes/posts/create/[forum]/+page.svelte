@@ -43,11 +43,9 @@
     }
 </script>
 
+<h2>Create Post</h2>
 {#if !token}
     <p>You need to be logged in to create a post</p>
-{/if}
-{#if token}
-    <p>{token}</p>
 {/if}
 
 {#if message}
@@ -55,7 +53,7 @@
 {/if}
 
 {#if forum}
-    <h1>{forum}</h1>
+    <h4>Posting to {forum}</h4>
 {/if}
 <form on:submit={onSubmit}>
     <label for="title">Title</label>

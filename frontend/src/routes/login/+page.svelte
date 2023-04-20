@@ -42,6 +42,7 @@
     });
 </script>
 
+<h2>Login</h2>
 {#if message}
     <p>{message}</p>
 {/if}

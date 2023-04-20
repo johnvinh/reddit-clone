@@ -32,6 +32,7 @@
     }
 </script>
 
+<h2>Register</h2>
 {#if message}
     <p>{message}</p>
 {/if}
