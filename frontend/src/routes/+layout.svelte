@@ -20,7 +20,7 @@
 </script>
 
 <header>
-    <h1>Reddit Clone</h1>
+    <h1><a href="/">Reddit Clone</a></h1>
     {#if username}
         <p>{username}</p>
     {/if}
