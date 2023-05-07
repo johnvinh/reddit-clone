@@ -35,7 +35,12 @@
     <input type="button" value="Create Post" on:click={createPost}>
     <ul>
         {#each posts as post}
-            <li><a href='/forums/{post["forum"]["name"]}/{post["id"]}'>{post["title"]}</a></li>
+            {#if post["link"]}
+                <li><a href='{post["link"]}'>{post["title"]}</a></li>
+            {/if}
+            {#if !post["link"]}
+                <li><a href='/forums/{post["forum"]["name"]}/{post["id"]}'>{post["title"]}</a></li>
+            {/if}
         {/each}
     </ul>
 {/if}
