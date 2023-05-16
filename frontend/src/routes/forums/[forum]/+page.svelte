@@ -36,10 +36,10 @@
     {#each posts as post}
         <div class="post-box">
             {#if post["link"]}
-                <a href='{post["link"]}'>{post["title"]}</a>
+                <a class="post-title" href='{post["link"]}'>{post["title"]}</a>
             {/if}
             {#if !post["link"]}
-                <a href='/forums/{post["forum"]["name"]}/{post["id"]}'>{post["title"]}</a>
+                <a class="post-title" href='/forums/{post["forum"]["name"]}/{post["id"]}'>{post["title"]}</a>
             {/if}
             <div>
                 <a href='/forums/{post["forum"]["name"]}/{post["id"]}'>View Comments</a>
@@ -49,6 +49,11 @@
 {/if}
 
 <style>
+    .post-title {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
     .post-box {
         border: 1px solid black;
         margin: 10px;
