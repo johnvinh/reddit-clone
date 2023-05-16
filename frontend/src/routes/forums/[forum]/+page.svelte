@@ -33,14 +33,25 @@
     <h2>r/{data.forum.name}</h2>
 
     <input type="button" value="Create Post" on:click={createPost}>
-    <ul>
-        {#each posts as post}
+    {#each posts as post}
+        <div class="post-box">
             {#if post["link"]}
-                <li><a href='{post["link"]}'>{post["title"]}</a></li>
+                <a href='{post["link"]}'>{post["title"]}</a>
             {/if}
             {#if !post["link"]}
-                <li><a href='/forums/{post["forum"]["name"]}/{post["id"]}'>{post["title"]}</a></li>
+                <a href='/forums/{post["forum"]["name"]}/{post["id"]}'>{post["title"]}</a>
             {/if}
-        {/each}
-    </ul>
+            <div>
+                <a href='/forums/{post["forum"]["name"]}/{post["id"]}'>View Comments</a>
+            </div>
+        </div>
+    {/each}
 {/if}
+
+<style>
+    .post-box {
+        border: 1px solid black;
+        margin: 10px;
+        padding: 10px;
+    }
+</style>
