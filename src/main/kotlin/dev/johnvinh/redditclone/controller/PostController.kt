@@ -2,9 +2,12 @@ package dev.johnvinh.redditclone.controller
 
 import JwtKey
 import dev.johnvinh.redditclone.entity.Post
+import dev.johnvinh.redditclone.entity.User
+import dev.johnvinh.redditclone.getUserFromJwt
 import dev.johnvinh.redditclone.service.ForumService
 import dev.johnvinh.redditclone.service.PostService
 import dev.johnvinh.redditclone.service.UserService
+import dev.johnvinh.redditclone.verifyJwtToken
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import jakarta.servlet.http.HttpServletRequest
@@ -33,22 +36,20 @@ class PostController(
 
     @PostMapping("")
     fun createPost(@RequestBody postRequest: PostRequest, request: HttpServletRequest): ResponseEntity<*> {
-        val token = request.getHeader("Authorization")?.replace("Bearer ", "")
-        println("Token: $token")
-        val claims: Claims = try {
-            parser.parseClaimsJws(token).body
-        } catch (e: io.jsonwebtoken.security.SignatureException) {
-            return ResponseEntity.badRequest().body(mapOf("message" to "Invalid token"))
+        val userResponse = getUserFromJwt(parser, request, userService)
+        if (!userResponse.statusCode.is2xxSuccessful) {
+            return userResponse
         }
-        val username = claims.subject
-        val user = userService.getUserByUsername(username) ?: return ResponseEntity.badRequest()
-            .body(mapOf("message" to "Invalid token"))
+
+        val user = userResponse.body as User
         val forum = forumService.getForumByName(postRequest.forum) ?: return ResponseEntity.badRequest().body(mapOf("message" to "Invalid forum"))
+
         // Check that postRequest.link is a link using regex
         val linkRegex = Regex("^(http|https)://.*")
         if (postRequest.link.isNotEmpty() && !linkRegex.matches(postRequest.link)) {
             return ResponseEntity.badRequest().body(mapOf("message" to "Invalid link"))
         }
+
         val post = Post(
             title = postRequest.title,
             textualContent = postRequest.textualContent,

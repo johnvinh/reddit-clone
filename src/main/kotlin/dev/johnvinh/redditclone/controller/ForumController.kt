@@ -1,9 +1,12 @@
 package dev.johnvinh.redditclone.controller
 
 import dev.johnvinh.redditclone.entity.Forum
+import dev.johnvinh.redditclone.entity.User
+import dev.johnvinh.redditclone.getUserFromJwt
 import dev.johnvinh.redditclone.repository.ForumRepository
 import dev.johnvinh.redditclone.service.ForumService
 import dev.johnvinh.redditclone.service.UserService
+import dev.johnvinh.redditclone.verifyJwtToken
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import jakarta.servlet.http.HttpServletRequest
@@ -35,16 +38,12 @@ class ForumController(private val userService: UserService, private val forumSer
 
     @PostMapping("/create")
     fun createForum(@RequestBody forumRequest: ForumRequest, request: HttpServletRequest): ResponseEntity<*> {
-        val token = request.getHeader("Authorization")?.replace("Bearer ", "")
-        println("Token: $token")
-        val claims: Claims = try {
-            parser.parseClaimsJws(token).body
-        } catch (e: io.jsonwebtoken.security.SignatureException) {
-            return ResponseEntity.badRequest().body(mapOf("message" to "Invalid token"))
+        val userResponse = getUserFromJwt(parser, request, userService)
+        if (!userResponse.statusCode.is2xxSuccessful) {
+            return userResponse
         }
-        val username = claims.subject
-        val user = userService.getUserByUsername(username) ?: return ResponseEntity.badRequest()
-            .body(mapOf("message" to "Invalid token"))
+
+        val user = userResponse.body as User
         if (forumService.getForumByName(forumRequest.name) != null) {
             return ResponseEntity.badRequest().body(mapOf("message" to "Taken"))
         }
