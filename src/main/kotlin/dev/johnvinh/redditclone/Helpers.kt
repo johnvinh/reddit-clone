@@ -4,7 +4,6 @@ import dev.johnvinh.redditclone.entity.User
 import dev.johnvinh.redditclone.service.UserService
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.JwtParser
-import io.jsonwebtoken.JwtParserBuilder
 import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.ResponseEntity
 import java.util.*
