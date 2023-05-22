@@ -33,6 +33,7 @@
             window.location.href = `/forums/${name}`;
         } else if (data.message === "Invalid token") {
             localStorage.removeItem("token");
+            localStorage.removeItem("username");
             window.location.href = "/login";
         }
     }

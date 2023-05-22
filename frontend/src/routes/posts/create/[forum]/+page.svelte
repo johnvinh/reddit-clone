@@ -33,6 +33,7 @@
         const data = await response.json();
         if (data.message === "Invalid token") {
             localStorage.removeItem("token");
+            localStorage.removeItem("username");
             window.location.href = "/login";
         } else if (data.message === "Post created") {
             message = "Your post has been successfully created!";
