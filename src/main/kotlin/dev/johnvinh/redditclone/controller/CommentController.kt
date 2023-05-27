@@ -2,7 +2,6 @@ package dev.johnvinh.redditclone.controller
 
 import dev.johnvinh.redditclone.entity.User
 import dev.johnvinh.redditclone.getUserFromJwt
-import dev.johnvinh.redditclone.repository.CommentRepository
 import dev.johnvinh.redditclone.service.CommentService
 import dev.johnvinh.redditclone.service.UserService
 import io.jsonwebtoken.Jwts
