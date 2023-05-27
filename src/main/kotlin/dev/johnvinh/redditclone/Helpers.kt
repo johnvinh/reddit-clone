@@ -8,6 +8,14 @@ import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.ResponseEntity
 import java.util.*
 
+/**
+ * Verifies a JWT token by parsing the token from the request and checking if a user exists with the username in the token's claims.
+ *
+ * @param parser The JWT parser to parse the token.
+ * @param request The HTTP request from which to extract the Authorization header containing the JWT token.
+ * @param userService The user service to find the user by username.
+ * @return Optional of User. If the user exists, it is wrapped in the Optional. If not, an empty Optional is returned.
+ */
 fun verifyJwtToken(parser: JwtParser, request: HttpServletRequest, userService: UserService): Optional<User> {
     val token = request.getHeader("Authorization")?.replace("Bearer ", "")
     println("Token: $token")
@@ -17,6 +25,15 @@ fun verifyJwtToken(parser: JwtParser, request: HttpServletRequest, userService: 
     return Optional.of(user)
 }
 
+/**
+ * Extracts the user from the JWT token present in the HTTP request.
+ * If the token is invalid or the user does not exist, it returns a bad request response.
+ *
+ * @param parser The JWT parser to parse the token.
+ * @param request The HTTP request from which to extract the Authorization header containing the JWT token.
+ * @param userService The user service to find the user by username.
+ * @return ResponseEntity of User if the token is valid and the user exists, else ResponseEntity with an error message.
+ */
 fun getUserFromJwt(parser: JwtParser, request: HttpServletRequest, userService: UserService): ResponseEntity<*> {
     return try {
         val user = verifyJwtToken(parser, request, userService).orElse(null)
