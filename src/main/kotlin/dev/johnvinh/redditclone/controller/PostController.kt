@@ -24,6 +24,13 @@ import org.springframework.web.bind.annotation.*
  */
 class PostRequest(var title: String, var textualContent: String, var link: String, var forum: String)
 
+/**
+ * Handles requests related to posts.
+ *
+ * @property postService Provides methods related to posts.
+ * @property userService Provides methods related to users.
+ * @property forumService Provides methods related to forums.
+ */
 @RestController
 @RequestMapping("/api/post")
 class PostController(
@@ -33,15 +40,34 @@ class PostController(
 ) {
     private val parser = Jwts.parserBuilder().setSigningKey(JwtKey.secretKey).build()
 
+    /**
+     * Gets a list of all posts.
+     *
+     * @return A list of all posts.
+     */
     @GetMapping("")
     fun getPosts() = postService.getAllPosts()
 
+    /**
+     * Gets a specific post by its ID.
+     *
+     * @param id The ID of the post.
+     * @return The post, or null if no post with the given ID exists.
+     */
     @GetMapping("/{id}")
     @ResponseBody
     fun getPostById(@PathVariable id: Long): Post? {
         return postService.getPostById(id)
     }
 
+    /**
+     * Creates a new post. The request should include a JWT token for user authentication and a valid link.
+     * If the forum with the requested name doesn't exist, the method will return a bad request.
+     *
+     * @param postRequest The request body, which includes the title, textual content, link, and forum of the post.
+     * @param request The HTTP request, from which the JWT token is extracted.
+     * @return A ResponseEntity that includes a message and the status of the request.
+     */
     @PostMapping("")
     fun createPost(@RequestBody postRequest: PostRequest, request: HttpServletRequest): ResponseEntity<*> {
         val userResponse = getUserFromJwt(parser, request, userService)
