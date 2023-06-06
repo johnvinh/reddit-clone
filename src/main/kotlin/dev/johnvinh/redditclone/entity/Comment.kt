@@ -8,9 +8,9 @@ import jakarta.persistence.OneToOne
 
 @Entity
 class Comment(
-    @Id @GeneratedValue var id: Long? = null,
     @OneToOne var author: User,
     var body: String,
     @OneToMany var children: List<Comment>,
     var karma: Int = 0,
+    @Id @GeneratedValue var id: Long? = null,
 )
