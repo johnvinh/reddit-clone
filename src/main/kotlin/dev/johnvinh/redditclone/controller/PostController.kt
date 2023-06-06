@@ -14,6 +14,14 @@ import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
+/**
+ * Represents the data received in a request to create a post.
+ *
+ * @property title The title of the post.
+ * @property textualContent The textual content of the post.
+ * @property link The link associated with the post.
+ * @property forum The forum in which the post is to be created.
+ */
 class PostRequest(var title: String, var textualContent: String, var link: String, var forum: String)
 
 @RestController
