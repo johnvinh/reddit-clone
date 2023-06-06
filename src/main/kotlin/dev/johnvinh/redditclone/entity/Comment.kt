@@ -10,7 +10,7 @@ import jakarta.persistence.OneToOne
 class Comment(
     @OneToOne var author: User,
     var body: String,
-    @OneToMany var children: List<Comment>,
+    @OneToMany var children: List<Comment> = listOf(),
     var karma: Int = 0,
     @Id @GeneratedValue var id: Long? = null,
 )
