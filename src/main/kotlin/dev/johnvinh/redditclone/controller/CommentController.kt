@@ -1,5 +1,6 @@
 package dev.johnvinh.redditclone.controller
 
+import dev.johnvinh.redditclone.entity.Comment
 import dev.johnvinh.redditclone.entity.User
 import dev.johnvinh.redditclone.getUserFromJwt
 import dev.johnvinh.redditclone.service.CommentService
@@ -26,6 +27,7 @@ class CommentController(private val commentService: CommentService, private val 
         }
 
         val user = userResponse.body as User
-        return userResponse
+        val comment = Comment(user, commentRequest.content)
+        return ResponseEntity.ok(commentService.createComment(comment))
     }
 }
