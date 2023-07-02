@@ -18,7 +18,6 @@ import java.util.*
  */
 fun verifyJwtToken(parser: JwtParser, request: HttpServletRequest, userService: UserService): Optional<User> {
     val token = request.getHeader("Authorization")?.replace("Bearer ", "")
-    println("Token: $token")
     val claims: Claims = parser.parseClaimsJws(token).body
     val username = claims.subject
     val user = userService.getUserByUsername(username) ?: return Optional.empty()
