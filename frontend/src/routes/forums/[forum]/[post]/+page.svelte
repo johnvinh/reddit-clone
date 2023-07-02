@@ -10,6 +10,7 @@
     let token = "";
     let postId;
     let commentContent = "";
+    let comments = "";
 
     onMount(async () => {
         token = localStorage.getItem("token");
@@ -34,6 +35,7 @@
         textualContent = json["textualContent"];
         console.log(textualContent);
         postId = json["id"];
+        comments = json["comments"];
     });
 
     async function onSubmit(event) {
@@ -65,3 +67,12 @@
     <textarea id="comment" name="comment" rows="4" cols="50" bind:value={commentContent}></textarea>
     <button type="submit">Submit</button>
 </form>
+
+{#if comments}
+    {#each comments as comment}
+        <div>
+            <p>{comment.body}</p>
+            <p>{comment.author.username}</p>
+        </div>
+    {/each}
+{/if}
