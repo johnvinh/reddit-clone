@@ -70,9 +70,21 @@
 
 {#if comments}
     {#each comments as comment}
-        <div>
+        <div class="comment-box">
             <p>{comment.body}</p>
-            <p>{comment.author.username}</p>
+            <p class="comment-author">{comment.author.username}</p>
         </div>
     {/each}
 {/if}
+
+<style>
+    .comment-author {
+        font-weight: bold;
+    }
+
+    .comment-box {
+        border: 1px solid black;
+        margin: 10px;
+        padding: 10px;
+    }
+</style>
