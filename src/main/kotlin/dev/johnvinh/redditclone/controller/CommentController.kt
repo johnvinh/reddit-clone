@@ -59,7 +59,7 @@ class CommentController(
         val user = userResponse.body as User
         val comment = Comment(user, commentRequest.content)
         commentService.createComment(comment)
-        
+
         val post =
             postService.getPostById(commentRequest.postId) ?: return ResponseEntity.badRequest().body("Post not found")
         post.comments = post.comments.plus(comment)

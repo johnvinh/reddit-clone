@@ -7,8 +7,13 @@
     let message;
     let title = "";
     let textualContent = "";
+    let token = "";
+    let postId;
+    let commentContent = "";
 
     onMount(async () => {
+        token = localStorage.getItem("token");
+
         const response = await fetch(`/api/post/${data.post.id}`,
             {
                 method: "GET",
@@ -28,7 +33,23 @@
         title = json["title"];
         textualContent = json["textualContent"];
         console.log(textualContent);
+        postId = json["id"];
     });
+
+    async function onSubmit(event) {
+        event.preventDefault();
+        const response = await fetch("/api/comment/create", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                content: commentContent,
+                postId
+            })
+        });
+    }
 </script>
 
 <h2>{title}</h2>
@@ -38,3 +59,9 @@
 {#if !message}
     <p>{textualContent}</p>
 {/if}
+
+<form on:submit={onSubmit}>
+    <label for="comment">Comment</label>
+    <textarea id="comment" name="comment" rows="4" cols="50" bind:value={commentContent}></textarea>
+    <button type="submit">Submit</button>
+</form>
